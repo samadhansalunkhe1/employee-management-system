@@ -1,0 +1,11 @@
+<div class="container">
+  <h2>Employee List</h2>
+  <ul class="list-group" *ngFor = "let employee of employeeList">
+    <li class="list-group-item">
+        <a [routerLink]="['/view', employee.id]">{{employee.name}}</a>
+      <button type="button" class="btn btn-default btn-sm pull-right">
+          <a [routerLink]="['/edit', employee.id]">Edit</a>
+      </button>
+    </li>
+  </ul>
+</div>

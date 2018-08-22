@@ -1,0 +1,42 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "name": "Samadhan",
+      "email": "sam101@gmail.com",
+      "mobile": 8149463443,
+      "address": "Pune",
+      "salary": 50000,
+      "domain": [
+        "Angular"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Santosh Birje s",
+      "email": "santosh1994@gmail.com",
+      "mobile": "1111222200",
+      "address": "Vimannagar pune",
+      "salary": "50000",
+      "domain": ""
+    },
+    {
+      "id": 3,
+      "name": "Vivek Kasture",
+      "email": "vivek123@gmail.com",
+      "mobile": 1234567890,
+      "address": "Bangalore",
+      "salary": 35000,
+      "domain": ""
+    },
+    {
+      "name": "Sameer pathan",
+      "mobile": "8149463443",
+      "email": "samadhansalunkhe1@gmail.com",
+      "address": "pune",
+      "salary": "2222",
+      "domain": "",
+      "id": 4
+    }
+  ]
+}
