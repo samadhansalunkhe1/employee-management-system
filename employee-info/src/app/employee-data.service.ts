@@ -14,13 +14,9 @@ export class EmployeeDataService {
   }
 
   addEmployee(employee) {
-    console.log('sam in service');
-    console.log(employee);
-    console.log('sam in service');
-    const employee1 = '{"name: "sam", "mobile": "123", "email": "sam@gmail.com"}';
-    const headers = {'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'};
+    const headers = {'Content-Type' : 'application/json'};
     // return this.httpClient.post('http://localhost:3000/employees', employee);
-    return this.httpClient.post('http://localhost:5000/api/employee', employee1, {'headers': headers});
+    return this.httpClient.post('http://localhost:5000/api/employee', employee, {'headers': headers});
   }
 
   getSingleEmployee(empId) {
@@ -29,15 +25,12 @@ export class EmployeeDataService {
   }
 
   editEmployee (employee) {
-     return this.httpClient.patch('http://localhost:3000/employees/' + employee.id, employee);
+    // return this.httpClient.patch('http://localhost:3000/employees/' + employee.id, employee);
+    const headers = {'Content-Type' : 'application/json'};
+    return this.httpClient.put('http://localhost:5000/api/employee/' + employee.id, employee, {'headers': headers});
   }
+}
 
-  // getEmpData(edata) {
-  //   const data = {
-  //     name: edata.name ? edata.name : '',
-
-  //   };
-  // }
 
 
 // Below code is using for sharing data between components */
@@ -49,7 +42,6 @@ export class EmployeeDataService {
   //   this.employeeSalary.next(empUser.salary);
   //   this.employeeDomain.next(empUser.domain);
   // }
-
 
   // private employeeName = new BehaviorSubject<string>('');
   // empName = this.employeeName.asObservable();
@@ -68,4 +60,3 @@ export class EmployeeDataService {
 
   // private employeeDomain = new BehaviorSubject<string>('');
   // empDomain = this.employeeDomain.asObservable();
-}

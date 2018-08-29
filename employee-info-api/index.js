@@ -1,54 +1,48 @@
 const express = require('express');
-const app = express();
+const Joi = require('joi');
 
-var bodyParser = require('body-parser')
+// Parse incoming request bodies in a middleware before your handlers.
+var bodyParser = require('body-parser');
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
+var app = express();
 
-// parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-// app.use(function (req, res) {
-//   res.setHeader('Content-Type', 'application/json')
-//   res.write('you posted:\n')
-//   res.end(JSON.stringify(req.body, null, 2))
-// })
-
+// Employee static JSON obect
 const employees = [
     {
         "id": 1,
         "name": "Samadhan",
         "email": "sam101@gmail.com",
-        "mobile": 8149463443,
+        "mobile": "8149463443",
         "address": "Pune",
-        "salary": 50000,
+        "salary": "50000",
         "domain": [
             "Angular"
         ]
-        },
-        {
-        "id": 2,
-        "name": "Santosh",
-        "email": "santosh1994@gmail.com",
-        "mobile": "1111222200",
-        "address": "Vimannagar pune",
-        "salary": "50000",
-        "domain": [
-            "Java"
-            ]
-        },
-        {
-        "id": 3,
-        "name": "Vivek",
-        "email": "vivek123@gmail.com",
-        "mobile": 1234567890,
-        "address": "Bangalore",
-        "salary": 35000,
-        "domain": [
-            "CSS"
-            ]
-        }
+    },
+    {
+    "id": 2,
+    "name": "Santosh",
+    "email": "santosh1994@gmail.com",
+    "mobile": "1111222200",
+    "address": "Vimannagar pune",
+    "salary": "50000",
+    "domain": [
+        "Java"
+        ]
+    },
+    {
+    "id": 3,
+    "name": "Vivek",
+    "email": "vivek123@gmail.com",
+    "mobile": 1234567890,
+    "address": "Bangalore",
+    "salary": 35000,
+    "domain": [
+        "CSS"
+        ]
+    }
 ]
 
 // Get all employees
@@ -63,23 +57,60 @@ app.get('/api/employees/:id', (req, res) => {
     res.send(employee);
 });
 
+// Post - Create new employee
 app.post('/api/employee', (req, res) => {
-    console.log('sam in api');
-    console.log(req.body);
-    // const employee = {
-    //     "id": employees.length + 1,
-    //     "name": req.body.name,
-    //     "email": req.body.email,
-    //     "mobile": req.body.mobile,
-    //     "address": req.body.address,
-    //     "salary": req.body.salary,
-    //     "domain": req.body.domain
-    // }
+    // Check req.body is empty
+    if (!req.body) return res.sendStatus(400);
 
-    // employees.push(employee);
-    // res.send(employee);
-})
+    // Validate - If Invalid return 400 - bad request 
+    const { error } = validateEmployee(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
+    const employee = {
+        "id": employees.length + 1,
+        "name": req.body.name,
+        "email": req.body.email,
+        "mobile": req.body.mobile,
+        "address": req.body.address,
+        "salary": req.body.salary,
+        "domain": req.body.domain
+    }
+
+    employees.push(employee);
+    res.send(employee);
+});
+
+// Update - Existing employee data
+app.put('/api/employee/:id', (req, res) => {
+    console.log('sam in PUT api', req.body);
+    // Check req.body is not empty
+    if (!req.body) return res.sendStatus(404);
+
+    // Check employee id if not found return message
+    const employee = employees.find(c => c.id === parseInt(req.params.id));
+    if (!employee) return res.status(400).send('The employee with given id not found');
+
+    const { error } = validateEmployee(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    employee.name = req.body.name;
+    employee.email = req.body.email;
+    employee.mobile = req.body.mobile;
+    employee.address = req.body.address;
+    employee.salary = req.body.salary;
+    employee.domain = req.body.domain;
+
+    res.send(employee);
+});
+
+// Validate employee data and show warnings
+function validateEmployee(request) {
+    const schema = {
+        name: Joi.string().min(4).required()
+    }
+
+    return Joi.validate(request, schema);
+}
 
 // Env - Assign a value to port
 const port = process.env.PORT || 3000;

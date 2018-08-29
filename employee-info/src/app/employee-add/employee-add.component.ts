@@ -34,6 +34,8 @@ export class EmployeeAddComponent implements OnInit {
       console.log(result);
       if (result) {
         this.router.navigate(['/list']);
+      } else {
+        alert('Form is not submitted properly.');
       }
      });
   }

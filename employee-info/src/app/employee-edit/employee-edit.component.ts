@@ -54,7 +54,7 @@ export class EmployeeEditComponent implements OnInit {
   editEmployeeRecord() {
     this.employeeForm.value.id = this.employeeId;
     this.empData.editEmployee(this.employeeForm.value).subscribe((result) => {
-      console.log(result);
+      console.log('sssssssssssss', result);
       if (result) {
         this.router.navigate(['/list']);
       }
