@@ -10,29 +10,29 @@ export class EmployeeDataService {
 
   getAllEmployee() {
    // return this.httpClient.get('http://localhost:3000/employees');
-   return this.httpClient.get('http://localhost:5000/api/employees');
+   return this.httpClient.get('http://localhost:3000/api/employees');
   }
 
   addEmployee(employee) {
     const headers = {'Content-Type' : 'application/json'};
     // return this.httpClient.post('http://localhost:3000/employees', employee);
-    return this.httpClient.post('http://localhost:5000/api/employee', employee, {'headers': headers});
+    return this.httpClient.post('http://localhost:3000/api/employee', employee, {'headers': headers});
   }
 
   getSingleEmployee(empId) {
    // return this.httpClient.get('http://localhost:3000/employees/' + empId);
-   return this.httpClient.get('http://localhost:5000/api/employees/' + empId);
+   return this.httpClient.get('http://localhost:3000/api/employees/' + empId);
   }
 
   editEmployee (employee) {
     // return this.httpClient.patch('http://localhost:3000/employees/' + employee.id, employee);
     const headers = {'Content-Type' : 'application/json'};
-    return this.httpClient.put('http://localhost:5000/api/employee/' + employee.id, employee, {'headers': headers});
+    return this.httpClient.put('http://localhost:3000/api/employee/' + employee.id, employee, {'headers': headers});
   }
 
   deleteEmployee (employeeId) {
     const headers = {'Content-Type' : 'application/json'};
-    return this.httpClient.delete('http://localhost:5000/api/employee/' + employeeId, {'headers': headers});
+    return this.httpClient.delete('http://localhost:3000/api/employee/' + employeeId, {'headers': headers});
   }
 }
 

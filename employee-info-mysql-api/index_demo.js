@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 
-// crate connections
+// create connections
 const db = mysql.createConnection({
     host : 'localhost',
     user : 'root',
@@ -9,7 +9,7 @@ const db = mysql.createConnection({
     database: 'employeeNodeMysql'
 });
 
-// Connect
+// Connect DB
 db.connect((err) => {
     if (err) {
         throw err;
