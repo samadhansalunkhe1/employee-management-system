@@ -106,11 +106,32 @@ app.put('/api/employee/:id', (req, res) => {
 // Validate employee data and show warnings
 function validateEmployee(request) {
     const schema = {
-        name: Joi.string().min(4).required()
+        id: Joi.string().allow(''),
+        name: Joi.string().min(5).required(),
+        email: Joi.string().allow(''),
+        mobile: Joi.string().allow(''),
+        address: Joi.string().allow(''),
+        salary: Joi.string().allow(''),
+        domain: Joi.string().allow('')
     }
 
     return Joi.validate(request, schema);
 }
+
+// Delete employee record API
+app.delete('/api/employee/:id', (req, res) => {
+    // Look up the employee record
+    // If not exist return 404
+    const employee = employees.find(e => e.id === parseInt(req.params.id))
+    if (!employee) return res.status(404).send('Employee id not found')
+
+    // Delete the cource
+    const index = employees.indexOf(employee);
+    employees.splice(index,1);
+
+    res.send(employee);
+})
+
 
 // Env - Assign a value to port
 const port = process.env.PORT || 3000;

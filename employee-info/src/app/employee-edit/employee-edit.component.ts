@@ -18,7 +18,8 @@ export class EmployeeEditComponent implements OnInit {
   employeeSalary: string;
   employeeDomain: string;
 
-  constructor(private empData: EmployeeDataService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private empData: EmployeeDataService, private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.employeeForm = new FormGroup({
@@ -54,7 +55,6 @@ export class EmployeeEditComponent implements OnInit {
   editEmployeeRecord() {
     this.employeeForm.value.id = this.employeeId;
     this.empData.editEmployee(this.employeeForm.value).subscribe((result) => {
-      console.log('sssssssssssss', result);
       if (result) {
         this.router.navigate(['/list']);
       }

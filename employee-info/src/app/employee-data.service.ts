@@ -29,8 +29,12 @@ export class EmployeeDataService {
     const headers = {'Content-Type' : 'application/json'};
     return this.httpClient.put('http://localhost:5000/api/employee/' + employee.id, employee, {'headers': headers});
   }
-}
 
+  deleteEmployee (employeeId) {
+    const headers = {'Content-Type' : 'application/json'};
+    return this.httpClient.delete('http://localhost:5000/api/employee/' + employeeId, {'headers': headers});
+  }
+}
 
 
 // Below code is using for sharing data between components */

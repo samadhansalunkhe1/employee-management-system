@@ -6,6 +6,8 @@
       <button type="button" class="btn btn-default btn-sm pull-right">
           <a [routerLink]="['/edit', employee.id]">Edit</a>
       </button>
+      <button type="button" class="btn btn-default btn-sm pull-right" (click) = "deleteEmployeeRecord(employee.id)">
+      Delete</button>
     </li>
   </ul>
 </div>

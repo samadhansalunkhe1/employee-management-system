@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeDataService } from '../employee-data.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
@@ -9,7 +10,8 @@ import { EmployeeDataService } from '../employee-data.service';
 export class EmployeeListComponent implements OnInit {
   employeeList = [];
 
-  constructor(private empData: EmployeeDataService) { }
+  constructor(private empData: EmployeeDataService, private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.showEmployeeList();
@@ -22,7 +24,14 @@ export class EmployeeListComponent implements OnInit {
     });
   };
 
-  // editEmployee (employee) {
-  //   this.empData.editEmployeeRecord(employee);
-  // }
+  /* Delete existing employee record */
+  deleteEmployeeRecord(employeeId) {
+    alert(employeeId);
+    this.empData.deleteEmployee(employeeId).subscribe((result) => {
+      console.log('sam in delete', result);
+      if (result) {
+       window.location.href = '/list';
+      }
+    });
+  }
 }
